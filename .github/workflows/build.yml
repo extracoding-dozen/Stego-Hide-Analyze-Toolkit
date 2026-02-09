@@ -39,8 +39,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libwayland-dev libx11-dev libx11-xcb-dev libxkbcommon-x11-dev libgles2-mesa-dev libegl1-mesa-dev
 
-    - name: Download Go modules
-      run: go mod download
+    - name: Tidy and Download modules
+      run: |
+        go mod tidy
+        go mod download
 
     - name: Build
       run: |
