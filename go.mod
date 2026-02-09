@@ -1,4 +1,4 @@
-module stego-hide-analize-toolkit
+module Stego-Hide-Analyze-Toolkit
 
 go 1.25.3
 
