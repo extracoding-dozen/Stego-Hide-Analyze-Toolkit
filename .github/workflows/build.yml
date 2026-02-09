@@ -1,71 +1,93 @@
-# Имя нашего workflow
-name: Create Release
+name: Build and Release
 
-# Условие запуска: только когда мы создаем и пушим тег, который начинается с "v" (например, v1.0, v1.0.1)
 on:
   push:
     tags:
       - 'v*.*.*'
 
 jobs:
-  build_and_release:
-    name: Build and Release
-    # Запускаем на последней версии Ubuntu, оттуда будем кросс-компилировать (проще с зависимостями)
-    runs-on: ubuntu-latest
+  # --- ЗАДАЧА №1: СБОРКА БИНАРНИКОВ НА РОДНЫХ СИСТЕМАХ ---
+  build:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            output_name: stego-toolkit-linux
+            asset_ext: ""
+          - os: windows-latest
+            output_name: stego-toolkit-windows
+            asset_ext: ".exe"
+          - os: macos-latest
+            output_name: stego-toolkit-macos
+            asset_ext: ""
 
     steps:
-      # 1. Загружаем код из репозитория
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Устанавливаем Go
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: '1.23'
-      
-      # 3. Устанавливаем ВСЕ зависимости для Linux (GTK, Vulkan и т.д.)
-      # Это нужно для кросс-компиляции CGO-частей библиотек
-      - name: Install Linux Build Dependencies
+
+      # Устанавливаем системные зависимости только для Linux
+      - name: Install Linux Dependencies
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwayland-dev libx11-dev libx11-xcb-dev libxkbcommon-x11-dev libgles2-mesa-dev libegl1-mesa-dev libffi-dev libxcursor-dev libxfixes-dev libvulkan-dev libgtk-3-dev
-
-      # 4. Устанавливаем Mingw-w64 для кросс-компиляции под Windows
-      - name: Install Windows Cross-Compiler
-        run: sudo apt-get install -y mingw-w64
-
-      # 5. Чиним зависимости Go на лету
+      
       - name: Tidy and Download modules
         run: go mod tidy
 
-      # 6. Собираем бинарники для ВСЕХ систем
-      - name: Build Binaries
-        run: |
-          # Собираем для Linux
-          go build -v -o build/stego-toolkit-linux ./cmd/main.go
-          # Собираем для Windows
-          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 CC=x86_64-w64-mingw32-gcc go build -v -o build/stego-toolkit-windows.exe ./cmd/main.go
-          # Собираем для macOS (без CGO, может потребовать доп. настроек, но должно работать)
-          GOOS=darwin GOARCH=amd64 go build -v -o build/stego-toolkit-macos ./cmd/main.go
+      # Собираем бинарник (без кросс-компиляции, все нативно)
+      - name: Build Binary
+        run: go build -v -o ${{ matrix.output_name }}${{ matrix.asset_ext }} ./cmd/main.go
 
-      # 7. Упаковываем в ZIP-архивы
-      - name: Package artifacts
+      # Загружаем собранный файл как артефакт
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.os }}
+          path: ${{ matrix.output_name }}${{ matrix.asset_ext }}
+
+  # --- ЗАДАЧА №2: СОЗДАНИЕ РЕЛИЗА ПОСЛЕ УСПЕШНОЙ СБОРКИ ---
+  release:
+    name: Create GitHub Release
+    # Эта задача зависит от успешного выполнения задачи 'build'
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Скачиваем ВСЕ артефакты, созданные в задаче 'build'
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      # Упаковываем каждый бинарник в свой ZIP-архив
+      - name: Package artifacts into ZIPs
         run: |
-          cd build
-          zip stego-toolkit-linux.zip stego-toolkit-linux
-          zip stego-toolkit-windows.zip stego-toolkit-windows.exe
-          zip stego-toolkit-macos.zip stego-toolkit-macos
-          cd ..
-          
-      # 8. Создаем релиз и загружаем архивы
-      - name: Create GitHub Release
+          cd artifacts
+          # Упаковываем Windows
+          cd binary-windows-latest && zip ../stego-toolkit-windows.zip * && cd ..
+          # Упаковываем Linux
+          cd binary-ubuntu-latest && zip ../stego-toolkit-linux.zip * && cd ..
+          # Упаковываем macOS
+          cd binary-macos-latest && zip ../stego-toolkit-macos.zip * && cd ..
+
+      # Создаем релиз и прикрепляем к нему три ZIP-архива
+      - name: Create Release and Upload Assets
         uses: softprops/action-gh-release@v2
         with:
-          # Имя релиза будет совпадать с тегом (например, "v1.0.0")
           name: Release ${{ github.ref_name }}
-          # Файлы, которые нужно прикрепить к релизу
           files: |
-            build/stego-toolkit-linux.zip
-            build/stego-toolkit-windows.zip
-            build/stego-toolkit-macos.zip
+            artifacts/stego-toolkit-windows.zip
+            artifacts/stego-toolkit-linux.zip
+            artifacts/stego-toolkit-macos.zip
