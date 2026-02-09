@@ -1,10 +1,10 @@
 package chi_square
 
 import (
+	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
+	"Stego-Hide-Analyze-Toolkit/internal/utils"
 	"image"
 	"math"
-	"stego-hide-analize-toolkit/internal/steganoanalisys/dto"
-	"stego-hide-analize-toolkit/internal/utils"
 )
 
 // ChiSquareAttack implements the Chi-Square statistical attack.

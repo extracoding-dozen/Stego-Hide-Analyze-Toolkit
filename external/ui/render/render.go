@@ -1,9 +1,9 @@
 package render
 
 import (
+	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
 	"image"
 	"image/color"
-	"stego-hide-analize-toolkit/internal/steganoanalisys/dto"
 )
 
 // RenderAnalysisMap converts a raw probability map (AnalysisMap) into a visual image.

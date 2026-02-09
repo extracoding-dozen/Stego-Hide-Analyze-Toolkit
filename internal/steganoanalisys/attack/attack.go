@@ -1,8 +1,8 @@
 package attack
 
 import (
+	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
 	"image"
-	"stego-hide-analize-toolkit/internal/steganoanalisys/dto"
 )
 
 // Attack defines the interface for all steganography analysis algorithms.

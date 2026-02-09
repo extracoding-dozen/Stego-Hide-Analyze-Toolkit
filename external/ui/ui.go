@@ -1,13 +1,13 @@
 package ui
 
 import (
+	"Stego-Hide-Analyze-Toolkit/external/ui/detect_tab"
+	calculator "Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/energy_calculator"
+	drawer "Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/map_drawer"
+	"Stego-Hide-Analyze-Toolkit/internal/utils"
 	"fmt"
 	"image"
 	"image/color"
-	"stego-hide-analize-toolkit/external/ui/detect_tab"
-	calculator "stego-hide-analize-toolkit/internal/steganoanalisys/energy_calculator"
-	drawer "stego-hide-analize-toolkit/internal/steganoanalisys/map_drawer"
-	"stego-hide-analize-toolkit/internal/utils"
 	"strings"
 
 	"gioui.org/app"

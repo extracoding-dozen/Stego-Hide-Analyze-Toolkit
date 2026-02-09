@@ -1,6 +1,12 @@
 package detect_tab
 
 import (
+	"Stego-Hide-Analyze-Toolkit/external/ui/render"
+	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack"
+	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack/chi_square"
+	entropy_attack "Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack/entropy"
+	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
+	"Stego-Hide-Analyze-Toolkit/internal/utils"
 	"fmt"
 	"gioui.org/app"
 	"gioui.org/layout"
@@ -12,12 +18,6 @@ import (
 	"image"
 	"image/color"
 	"math"
-	"stego-hide-analize-toolkit/external/ui/render"
-	"stego-hide-analize-toolkit/internal/steganoanalisys/attack"
-	"stego-hide-analize-toolkit/internal/steganoanalisys/attack/chi_square"
-	entropy_attack "stego-hide-analize-toolkit/internal/steganoanalisys/attack/entropy"
-	"stego-hide-analize-toolkit/internal/steganoanalisys/dto"
-	"stego-hide-analize-toolkit/internal/utils"
 )
 
 // DetectTabController manages the state and UI logic for the Steganography Detection tab.

@@ -1,10 +1,10 @@
 package main
 
 import (
+	"Stego-Hide-Analyze-Toolkit/external/ui"
 	"gioui.org/app"
 	"log"
 	"os"
-	"stego-hide-analize-toolkit/external/ui"
 )
 
 func main() {
