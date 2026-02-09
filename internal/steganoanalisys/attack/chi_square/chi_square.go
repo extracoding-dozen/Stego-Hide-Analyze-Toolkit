@@ -1,8 +1,8 @@
 package chi_square
 
 import (
-	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
-	"Stego-Hide-Analyze-Toolkit/internal/utils"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/utils"
 	"image"
 	"math"
 )

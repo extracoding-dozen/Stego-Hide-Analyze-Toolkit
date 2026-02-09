@@ -1,7 +1,7 @@
 package attack
 
 import (
-	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
 	"image"
 )
 

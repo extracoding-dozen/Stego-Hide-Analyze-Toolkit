@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Stego-Hide-Analyze-Toolkit/external/ui"
 	"gioui.org/app"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/external/ui"
 	"log"
 	"os"
 )

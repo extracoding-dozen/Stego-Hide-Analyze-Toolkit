@@ -1,12 +1,6 @@
 package detect_tab
 
 import (
-	"Stego-Hide-Analyze-Toolkit/external/ui/render"
-	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack"
-	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack/chi_square"
-	entropy_attack "Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack/entropy"
-	"Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
-	"Stego-Hide-Analyze-Toolkit/internal/utils"
 	"fmt"
 	"gioui.org/app"
 	"gioui.org/layout"
@@ -14,6 +8,12 @@ import (
 	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/external/ui/render"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack/chi_square"
+	entropy_attack "github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/attack/entropy"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/dto"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/utils"
 	"github.com/sqweek/dialog"
 	"image"
 	"image/color"

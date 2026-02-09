@@ -1,11 +1,11 @@
 package ui
 
 import (
-	"Stego-Hide-Analyze-Toolkit/external/ui/detect_tab"
-	calculator "Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/energy_calculator"
-	drawer "Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/map_drawer"
-	"Stego-Hide-Analyze-Toolkit/internal/utils"
 	"fmt"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/external/ui/detect_tab"
+	calculator "github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/energy_calculator"
+	drawer "github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/steganoanalisys/map_drawer"
+	"github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit/internal/utils"
 	"image"
 	"image/color"
 	"strings"

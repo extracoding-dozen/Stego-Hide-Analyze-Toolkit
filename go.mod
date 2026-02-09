@@ -1,4 +1,4 @@
-module Stego-Hide-Analyze-Toolkit
+module github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit
 
 go 1.25.3
 
