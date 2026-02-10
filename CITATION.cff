@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+authors:
+  - family-names: "Turchin"
+    given-names: "Daniil"     
+    email: "turchin2005@internet.ru"
+title: "Stego-Hide-Analyze-Toolkit: A Toolkit for Steganography Analysis"
+version: v0.0.1 
+date-released: 2026-02-10 
+url: "https://github.com/extracoding-dozen/Stego-Hide-Analyze-Toolkit"
+license: GPL-3.0-or-later
